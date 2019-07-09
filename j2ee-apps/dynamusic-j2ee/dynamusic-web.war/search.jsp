@@ -1,6 +1,6 @@
 <%@ taglib uri="/dspTaglib" prefix="dsp" %>
+<dsp:importbean bean="/dynamusic/SongSearchFormHandler"/>
 <dsp:page>
-    <dsp:importbean bean="/dynamusic/SongSearchFormHandler"/>
     <!-------------------------------------------------------------
     Dynamusic Site Mockup
 
@@ -19,44 +19,43 @@
     <dsp:include page="common/header.jsp">
         <dsp:param name="pagename" value="Search"/>
     </dsp:include>
-    </table>
     <table width="700" cellpadding="8">
         <tr>
             <!-- Sidebar -->
             <td width="100" bgcolor="ghostwhite" valign="top">
-                <!-- (replace contents of this table cell by
-                      dynamically including common/sidebar.html) -->
-                <dsp:include page="common/sidebar.jsp"></dsp:include>
+                <dsp:include page="common/sidebar.jsp"/>
             </td>
             <!-- Page Body -->
 
             <td valign="top">
                 <font face="Verdana,Geneva,Arial" size="-1">
-
                     <!-- *** Start page content *** -->
-
                     <i> Please enter the name (or first few characters) of the song you're looking for: </i>
-                    <p>&nbsp;<br>
+                    <br>
 
-                        <form action="searchResults.html">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <input type="text" size="40"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="center">
-                                        &nbsp;
-                    <p><input type="submit" value="search"/>
+                    <dsp:form action="<%=request.getRequestURI()%>" method="post">
+                        <table>
+                            <tr>
+                                <td>
+                                    <dsp:input bean="SongSearchFormHandler.keywordInput" type="text" size="40"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <dsp:input bean="SongSearchFormHandler.successURL" type="hidden"
+                                               value="searchResults.jsp"/>&nbsp;
+                                    <p><dsp:input bean="SongSearchFormHandler.search" type="submit" value="search"/></p>
+                                </td>
+                            </tr>
+                        </table>
+                    </dsp:form>
+                </font>
             </td>
         </tr>
-        </form>
 
 
         <!-- *** End real content *** -->
 
-        </font>
         </td>
         </tr>
     </table>

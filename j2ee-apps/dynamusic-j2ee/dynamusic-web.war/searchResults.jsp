@@ -1,6 +1,7 @@
 <%@ taglib uri="/dspTaglib" prefix="dsp" %>
+<dsp:importbean bean="/dynamusic/SongSearchFormHandler"/>
+<dsp:importbean bean="/atg/dynamo/droplet/ForEach"/>
 <dsp:page>
-    <dsp:importbean bean="/dynamusic/SongSearchFormHandler"/>
     <!-------------------------------------------------------------
     Dynamusic Site DAF Site Mockup
 
@@ -26,9 +27,7 @@
         <tr>
             <!-- Sidebar -->
             <td width="100" bgcolor="ghostwhite" valign="top">
-                <!-- (replace contents of this table cell by
-                      dynamically including common/sidebar.html) -->
-                <dsp:include page="common/sidebar.jsp"></dsp:include>
+                <dsp:include page="common/sidebar.jsp"/>
             </td>
             <!-- Page Body -->
             <td valign="top">
@@ -38,13 +37,26 @@
 
                     <p>The following songs match your criteria, <font color="red">Man</font>:
                     <p>
-
                     <ul>
-                        <li><a href="song.html">Man in the Moon</a> by <a href="artistDetails.html">R.E.M.</a>
-                        <li><a href="song.html">I'm Your Man</a> by <a href="artistDetails.html">Leonard Cohen</a>
-                        <li><a href="song.html">Missionary Man</a> by <a href="artistDetails.html">Eurythmics</a>
-                        <li><a href="song.html">First We Take Manhattan</a> by <a href="artistDetails.html">Leonard
-                            Cohen</a>
+                        <dsp:droplet name="ForEach">
+                            <dsp:param name="array" bean="SongSearchFormHandler.searchResults"/>
+                            <dsp:oparam name="output">
+                                <li>
+                                    <dsp:a href="song.jsp">
+                                        <dsp:param name="itemId" param="element.id"/>
+                                        <dsp:valueof param="element.title"/>
+                                    </dsp:a>
+                                     by
+                                    <dsp:a href="artistDetails.jsp">
+                                        <dsp:param name="itemId" param="element.artist.id"/>
+                                        <dsp:valueof param="element.artist.name"/>
+                                    </dsp:a>
+                                </li>
+                            </dsp:oparam>
+                            <dsp:oparam name="empty">
+                                No songs...
+                            </dsp:oparam>
+                        </dsp:droplet>
                     </ul>
 
 
