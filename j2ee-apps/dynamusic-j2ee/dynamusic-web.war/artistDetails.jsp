@@ -30,7 +30,10 @@
                         <dsp:include page="common/sidebar.jsp"></dsp:include>
                         <br>
                         <font face="Verdana,Geneva,Arial" size="-1" color="steelblue">
-                            <b>Edit Artist Info</b></font>
+                            <dsp:a href="editArtist.jsp">
+                                <dsp:param name="artistId" param="itemId"/>
+                                Edit Artist Info
+                            </dsp:a></font>
                     </td>
 
                     <!-- Page Body -->

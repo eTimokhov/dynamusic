@@ -29,7 +29,7 @@
                 <dsp:include page="common/sidebar.jsp"></dsp:include>
                 <br>
                 <font face="Verdana,Geneva,Arial" size="-1" color="steelblue">
-                    <b>Add Artist</b></font>
+                    <dsp:a href="newArtist.jsp">Add Artist</dsp:a></font>
             </td>
             <!-- Page Body -->
 

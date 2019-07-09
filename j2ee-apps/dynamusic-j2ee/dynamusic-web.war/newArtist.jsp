@@ -1,4 +1,6 @@
 <%@ taglib uri="/dspTaglib" prefix="dsp" %>
+<dsp:importbean bean="/dynamusic/ArtistFormHandler"/>
+<dsp:importbean bean="/atg/dynamo/droplet/ErrorMessageForEach"/>
 <dsp:page>
 
     <!-------------------------------------------------------------
@@ -25,8 +27,6 @@
         <tr>
             <!-- Sidebar -->
             <td width="100" bgcolor="ghostwhite" valign="top">
-                <!-- (replace contents of this table cell by
-                      dynamically including common/sidebar.html) -->
                 <dsp:include page="common/sidebar.jsp">
                 </dsp:include>
             </td>
@@ -35,17 +35,21 @@
                 <font face="Verdana,Geneva,Arial" size="-1">
 
                     <!-- *** Start page content *** -->
-                    <form action="artistDetails.html">
+                    <dsp:form action="<%= request.getRequestURI() %>">
+                        <dsp:droplet name="ErrorMessageForEach">
+                            <dsp:oparam name="output">
+                                <dsp:valueof param="message"/><br>
+                            </dsp:oparam>
+                        </dsp:droplet>
                         <table cellpadding="10">
                             <tr>
                                 <td valign="middle">
                                     Artist Name:
                                 </td>
                                 <td valign="middle">
-
                                     <!-- DATA(1) Artist name -->
-                                    <input type="text"> &nbsp; &nbsp;
-
+                                    <dsp:input bean="ArtistFormHandler.value.name" type="text" required="true"/> &nbsp;
+                                    &nbsp;
                                 </td>
                             </tr>
                             <tr>
@@ -53,10 +57,8 @@
                                     Image Path:
                                 </td>
                                 <td valign="middle">
-
                                     <!-- DATA(2) Image path -->
-                                    <input type="text">
-
+                                    <dsp:input bean="ArtistFormHandler.value.photoURL" type="text"/>
                                 </td>
                             </tr>
                             <tr>
@@ -64,27 +66,23 @@
                                     Description:
                                 </td>
                                 <td valign="top">
-
                                     <!-- Data(3) Artist description -->
-                                    <textarea cols="60" rows="10" wrap="SOFT"></textarea>
-
+                                    <dsp:textarea bean="ArtistFormHandler.value.description" cols="60" rows="10"
+                                                  wrap="SOFT" />
                                 </td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td>
-                                    <!-- ACTION(a) Save data entered, and go to the artistDetails
-                                                   page where we can show the info on our newly-
-                                                   entered artist -->
-                                    <input type="submit" value="Create artist entry">
-
+                                    <dsp:input bean="ArtistFormHandler.createSuccessURL" type="hidden" value="artists.jsp"/>
+                                    <dsp:input bean="ArtistFormHandler.create" type="submit" value="Create artist entry"/>
                                 </td>
                             </tr>
 
 
                             </tr>
                         </table>
-                    </form>
+                    </dsp:form>
 
                     <!-- *** End real content *** -->
 
