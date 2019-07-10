@@ -50,11 +50,11 @@
 
                     Login name:
                     <dsp:input bean="/atg/userprofiling/ProfileFormHandler.value.login" name="login" size="24"
-                               type="text"/><br>
+                               type="text"/><br><br>
 
                     Password:
                     <dsp:input bean="/atg/userprofiling/ProfileFormHandler.value.password" name="password" size="24"
-                               type="password"/><br>
+                               type="password"/><br><br>
 
                     <!-- defines the URL to go to on success (relative to 'action')-->
                     <dsp:input bean="/atg/userprofiling/ProfileFormHandler.loginSuccessURL" type="hidden"

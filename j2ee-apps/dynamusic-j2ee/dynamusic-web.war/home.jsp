@@ -52,11 +52,12 @@ artists.
                                         <p>Welcome, <dsp:valueof bean="Profile.firstName"/>!</p>
                                     </dsp:oparam>
                                     <dsp:oparam name="true">
+                                        <dsp:a href="newProfile.jsp">Register</dsp:a>
                                         <dsp:droplet name="ForEach">
-                                            <dsp:param name="array" bean="FeaturedSongs.songs"/>
                                             <dsp:oparam name="outputStart">
                                                 <p>This week's featured songs are:</p>
                                             </dsp:oparam>
+                                            <dsp:param name="array" bean="FeaturedSongs.songs"/>
                                             <ul>
                                                 <dsp:oparam name="output">
                                                     <li><dsp:valueof param="element"/></li>
