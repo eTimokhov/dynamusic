@@ -15,6 +15,8 @@ artists.
 <dsp:importbean bean="/atg/dynamo/droplet/ForEach"/>
 <dsp:importbean bean="/atg/userprofiling/Profile"/>
 <dsp:importbean bean="/dynamusic/FeaturedSongs"/>
+<dsp:importbean bean="/atg/targeting/TargetingForEach"/>
+<dsp:importbean bean="/atg/registry/Slots/AlbumPromo"/>
 <dsp:page>
     <HTML>
     <HEAD>
@@ -68,10 +70,19 @@ artists.
                                 </dsp:droplet>
                             </td>
                             <td width="160" align="center">
-                                Featured Album:<br>
-                                <a href="albumDetails.html"><img src="images/BookOfSecrets.jpg"><br>
-                                    <b>The Book of Secrets</b> - Loreena McKennitt
-                                </a>
+                                <dsp:droplet name="TargetingForEach">
+                                    <dsp:param name="targeter" bean="AlbumPromo"/>
+                                    <dsp:oparam name="output">
+                                        Featured Album:<br>
+                                        <dsp:a href="albumDetails.jsp">
+                                            <dsp:param name="dsource" value="albumPromo"/>
+                                            <dsp:param name="itemId" param="element.id"/>
+                                            <img src="<dsp:valueof param="element.coverURL"/>"><br>
+                                            <b><dsp:valueof param="element.title"/></b> -
+                                            <dsp:valueof param="element.artist.name"/>
+                                        </dsp:a>
+                                    </dsp:oparam>
+                                </dsp:droplet>
                             </td>
                         </tr>
                         <tr>
