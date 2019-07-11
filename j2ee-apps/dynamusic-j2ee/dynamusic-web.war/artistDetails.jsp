@@ -1,6 +1,7 @@
 <%@ taglib uri="/dspTaglib" prefix="dsp" %>
 <dsp:importbean bean="/dynamusic/ArtistLookupDroplet"/>
 <dsp:importbean bean="/atg/dynamo/droplet/RQLQueryForEach"/>
+<dsp:importbean bean="/dynamusic/ViewItemEventSender"/>
 <dsp:page>
 
     <!-------------------------------------------------------------
@@ -20,6 +21,9 @@
     <dsp:droplet name="ArtistLookupDroplet">
         <dsp:param name="id" param="itemId"/>
         <dsp:oparam name="output">
+            <dsp:droplet name="ViewItemEventSender">
+                <dsp:param name="eventobject" param="element"/>
+            </dsp:droplet>
             <dsp:include page="common/header.jsp">
                 <dsp:param name="pagename" param="element.name"/>
             </dsp:include>
@@ -56,6 +60,7 @@
                                 <dsp:oparam name="output">
                                     <dsp:setvalue param="album" paramvalue="element"/>
                                     <li><font face="Verdana,Geneva,Arial"><font size=-1><dsp:a href="albumDetails.jsp">
+                                        <dsp:param name="dsource" value="artist-details"/>
                                         <dsp:param name="itemId" param="album.id"/>
                                         <dsp:valueof param="album.title"/>
                                     </dsp:a></font></font></li>
