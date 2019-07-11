@@ -16,7 +16,10 @@ artists.
 <dsp:importbean bean="/atg/userprofiling/Profile"/>
 <dsp:importbean bean="/dynamusic/FeaturedSongs"/>
 <dsp:importbean bean="/atg/targeting/TargetingForEach"/>
+<dsp:importbean bean="/atg/targeting/TargetingRandom"/>
 <dsp:importbean bean="/atg/registry/Slots/AlbumPromo"/>
+<dsp:importbean bean="/atg/registry/RepositoryTargeters/EventsRepository/VenueTargeter"/>
+<dsp:importbean bean="/atg/registry/RepositoryTargeters/UserInterestTargeter"/>
 <dsp:page>
     <HTML>
     <HEAD>
@@ -81,6 +84,56 @@ artists.
                                             <b><dsp:valueof param="element.title"/></b> -
                                             <dsp:valueof param="element.artist.name"/>
                                         </dsp:a>
+                                    </dsp:oparam>
+                                </dsp:droplet>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="80">&nbsp;</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td valign="top">
+                                <dsp:droplet name="TargetingRandom">
+                                    <dsp:param name="targeter" bean="UserInterestTargeter"/>
+                                    <dsp:param name="howMany" value="3"/>
+                                    <dsp:oparam name="outputStart">
+                                        Users with similar music interests:
+                                        <ul>
+                                    </dsp:oparam>
+                                    <dsp:oparam name="outputEnd">
+                                        </ul>
+                                    </dsp:oparam>
+                                    <dsp:oparam name="output">
+                                        <li><dsp:a href="userDetails.jsp">
+                                            <dsp:param name="itemId" param="element.id"/>
+                                            <dsp:valueof param="element.firstName"/>
+                                            <dsp:valueof param="element.lastName"/>
+                                        </dsp:a></li>
+                                    </dsp:oparam>
+                                </dsp:droplet>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="80">&nbsp;</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td valign="top">
+                                <dsp:droplet name="TargetingForEach">
+                                    <dsp:param name="targeter" bean="VenueTargeter"/>
+                                    <dsp:oparam name="outputStart">
+                                        <p>Concert venues near you... </p>
+                                        <ul>
+                                    </dsp:oparam>
+                                    <dsp:oparam name="outputEnd">
+                                        </ul>
+                                    </dsp:oparam>
+                                    <dsp:oparam name="output">
+                                        <li><dsp:a href="venueDetails.jsp">
+                                            <dsp:param name="itemId" param="element.id"/>
+                                            <dsp:valueof param="element.name"/>
+                                        </dsp:a></li>
                                     </dsp:oparam>
                                 </dsp:droplet>
                             </td>
