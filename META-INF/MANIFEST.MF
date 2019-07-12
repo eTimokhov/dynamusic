@@ -3,6 +3,6 @@ ATG-Config-Path: config/
 ATG-Required: DAS DPS DSS
 ATG-J2EE: j2ee-apps/dynamusic-j2ee
 ATG-EAR-Module: j2ee-apps/dynamusic-j2ee
-ATG-Class-Path: classes/ bin
+ATG-Class-Path: classes/
 
 
