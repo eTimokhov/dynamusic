@@ -1,12 +1,18 @@
 package dynamusic;
 
+import atg.dtm.TransactionDemarcation;
+import atg.dtm.TransactionDemarcationException;
 import atg.nucleus.GenericService;
 import atg.repository.*;
 import atg.repository.rql.RqlStatement;
 
+import javax.transaction.SystemException;
+import javax.transaction.TransactionManager;
+
 public class SongsManager extends GenericService {
 
     private Repository repository;
+    private TransactionManager transactionManager;
 
     public void deleteAlbumsByArtist(String artistId) throws RepositoryException {
         if (isLoggingDebug()) {
@@ -20,13 +26,33 @@ public class SongsManager extends GenericService {
         RepositoryItem[] albums = findAlbumsByArtistRql.executeQuery(albumView, rqlParams);
         if (albums == null)
             return;
-        for (RepositoryItem album : albums) {
-            String albumId = album.getRepositoryId();
-            repository.removeItem(albumId, "album");
-            if (isLoggingDebug()) {
-                logDebug("Album with id " + albumId + " deleted");
+
+        TransactionDemarcation transactionDemarcation = new TransactionDemarcation();
+        try {
+            transactionDemarcation.begin(transactionManager, TransactionDemarcation.REQUIRED);
+            try {
+                for (RepositoryItem album : albums) {
+                    String albumId = album.getRepositoryId();
+                    repository.removeItem(albumId, "album");
+                    if (isLoggingDebug()) {
+                        logDebug("Album with id " + albumId + " deleted");
+                    }
+                }
+            } catch (Exception e) {
+                try {
+                    transactionManager.setRollbackOnly();
+                } catch (SystemException ex) {
+                    if (isLoggingError()) {
+                        logError(ex);
+                    }
+                }
+            } finally {
+                transactionDemarcation.end();
             }
+        } catch (TransactionDemarcationException e) {
+            e.printStackTrace();
         }
+
     }
 
     public Repository getRepository() {
@@ -41,5 +67,13 @@ public class SongsManager extends GenericService {
             logDebug("setRepository called with" + repository);
         }
         this.repository = repository;
+    }
+
+    public TransactionManager getTransactionManager() {
+        return transactionManager;
+    }
+
+    public void setTransactionManager(TransactionManager transactionManager) {
+        this.transactionManager = transactionManager;
     }
 }
