@@ -1,4 +1,6 @@
 <%@ taglib uri="/dspTaglib" prefix="dsp" %>
+<dsp:importbean bean="/atg/dynamo/droplet/ForEach"/>
+<dsp:importbean bean="/atg/dynamo/droplet/Switch"/>
 <dsp:page>
 
     <%-- Required input param: itemId (id of the user to display --%>
@@ -91,7 +93,28 @@
                                                         <td>Location</td>
                                                         <td><b><dsp:valueof param="element.homeAddress.state"/></b></td>
                                                     </tr>
-
+                                                    <tr>
+                                                        <td>Playlists</td>
+                                                        <td>
+                                                            <ul>
+                                                                <dsp:droplet name="ForEach">
+                                                                    <dsp:param name="array" param="element.playlists"/>
+                                                                    <dsp:oparam name="output">
+                                                                        <dsp:droplet name="Switch">
+                                                                            <dsp:param name="value"
+                                                                                       param="element.publish"/>
+                                                                            <dsp:oparam name="true">
+                                                                                <li><dsp:a href="playlistDetails.jsp">
+                                                                                    <dsp:param name="itemId" param="element.id"/>
+                                                                                    <dsp:valueof param="element.name"/>
+                                                                                </dsp:a></li>
+                                                                            </dsp:oparam>
+                                                                        </dsp:droplet>
+                                                                    </dsp:oparam>
+                                                                </dsp:droplet>
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
                                                 </table>
                                             </dsp:oparam>
                                             <dsp:oparam name="false">

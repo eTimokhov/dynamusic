@@ -25,6 +25,7 @@ Page fragment displaying the sidebar, common to all pages.
                     <a href="login.jsp">Sign in</a><br>
                 </dsp:oparam>
                 <dsp:oparam name="false">
+                    <a href="playlists.jsp">Playlists</a><br>
                     <a href="updateProfile.jsp">Profile</a><br>
                     <a href="logout.jsp">Log out</a><br>
                 </dsp:oparam>
